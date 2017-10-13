@@ -89,3 +89,8 @@ Pushbullet is a great tool for sending text messages, links, files and seeing ph
       --delete          Delete the music file after sending.
       --help            Show this message and exit.
 
+## Contribute
+
+This is a very young project. If you have got any suggestions for new features or improvements, please comment over here. Pull Requests are most welcome !
+
+❤
