@@ -97,3 +97,5 @@ Pushbullet is a great tool for sending text messages, links, files and seeing ph
 This is a very young project. If you have got any suggestions for new features or improvements, please comment over here. Pull Requests are most welcome !
 
 ❤
+
+Please star if you liked it :)
