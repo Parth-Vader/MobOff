@@ -4,9 +4,9 @@
 
 ## Why?
 
-Almost all of use youtube for our music purposes, whether it is a new single released by Eminem or an old classic by Queen. 
+Almost all of us use youtube for our music purposes, whether it is a new single released by Eminem or an old classic by Queen. 
 
-Now we need to travel the next day and you realise that the `diff` between your offline mobile playlist and youtube playlist is too large.
+Scenario : You need to travel the next day and you realise that the `diff` between your offline mobile playlist and youtube playlist is too large.
 
 Now you have to use an online mp3 converter to convert all the songs one by one, and then connect your device via USB to paste all the music. That too without the metadata.
 
