@@ -39,7 +39,7 @@ def download(link, newdevice, video, delete):
     """Download a youtube video or playlist
     in best audio and video quality
     by providing a link, and then send to the
-    preffered device, or override it with `--newdevice`
+    preferred device, or override it with `--newdevice`
     option.
 
     Provide the device name for `--newdevice` in quotes for e.g. "OnePlus One".
@@ -108,7 +108,7 @@ def download(link, newdevice, video, delete):
 
     if(newdevice):
         newdevice = "Device('{0}')".format(newdevice)
-        click.secho("Overriding preffered device : {0} with given device : {1}").format(
+        click.secho("Overriding preferred device : {0} with given device : {1}").format(
             device, newdevice)
         phone = newdevice
 
@@ -124,7 +124,7 @@ def download(link, newdevice, video, delete):
 
 @cli.command('initialise', short_help='Initialise with info')
 def initialise():
-    """Initialise the program with yout API key and preffered device."""
+    """Initialise the program with yout API key and preferred device."""
     click.secho(
         "Please enter your API Key, you can obtain it from here: https://www.pushbullet.com/#settings/account",
         bold=True)
@@ -138,7 +138,7 @@ def initialise():
         quit()
 
     click.secho(
-        "Enter the serial number (eg 1 or 2) for your preffered device to send your music files",
+        "Enter the serial number (eg 1 or 2) for your preferred device to send your music files",
         bold=True)
 
     i = 0
