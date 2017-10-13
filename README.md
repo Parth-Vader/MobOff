@@ -21,3 +21,71 @@ There is a need for a tool which would directly download and convert the video, 
 * Add a preffered device to send music, or override it with `--newdevice` option.
 * Delete the downloaded video/music file from the computer via `--delete` option.
 
+## How to use?
+
+>The initial setting up of the Pushbullet account seems a little tiring but it is just a one-time setup, and the gains are endless.
+
+1. You need a [Pushbullet](https://www.pushbullet.com/) account to send the files. 
+
+Pushbullet is a great tool for sending text messages, links, files and seeing phone's notifications on your computer.
+
+  * Create yout account on it using your Google or Facebook login.
+  * Install the Pushbullet App on your iOS or Android device.
+  * Install the Chrome/Firefox extension for Pushbullet on your computer.
+
+2. After setting Pushbullet up, you need to install MobOff.
+
+  * Clone the repository via `git clone https://github.com/Parth-Vader/MobOff.git`.
+  * `cd MobOff`
+  * `sudo pip install .`
+
+3. You need to initialise with some of your information.
+  
+  * Run `moboff initialise`
+  * Obtain your Pushbullet API key via [Pushbullet Settings](https://www.pushbullet.com/#settings/account) by clicking on "Create Access Token" button.
+  * Enter the serial number for your preffered device to send the music/video files to when asked to.
+  
+### You're all set up.
+
+## Usage
+
+### `moboff --help`
+    Usage: moboff [OPTIONS] COMMAND [ARGS]...
+
+      A command line tool to download, convert and send youtube videos or
+      playlists to your device via Pushbullet.
+
+      You need to install Pushbullet in all your devices for this to work.
+
+      If this is your first time using this, please run `moboff initialise` to
+      add required information.
+
+      Run `moboff download --help` to know about various options while
+      downloading and sending.
+
+    Options:
+      --help  Show this message and exit.
+
+    Commands:
+      download    Downloads and sends the video
+      initialise  Initialise with info
+
+### `moboff download --help`
+    Usage: moboff download [OPTIONS]
+
+      Download a youtube video or playlist in best audio and video quality by
+      providing a link, and then send to the preffered device, or override it
+      with `--newdevice` option.
+
+      Provide the device name for `--newdevice` in quotes for e.g. "OnePlus
+      One".
+
+      Please run `moboff initialise` if this is your first time.
+
+    Options:
+      --link TEXT       Paste the link here to download and send to your device
+      --newdevice TEXT  Overwrite the saved device
+      --video           Send the video file instead of mp3 file.
+      --delete          Delete the music file after sending.
+      --help            Show this message and exit.
+
