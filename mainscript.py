@@ -1,18 +1,33 @@
 from pushbullet import Pushbullet
+import pushbullet
 import glob
 import os
-
+import subprocess
 import json
-import youtube_dl
 
 import click
 
+
 @click.group()
 def cli():
-    """A tool to download, convert and send youtube music and videos using Pushbullet"""
+    """A command line tool to download, convert
+    and send youtube videos or playlists to
+    your device via Pushbullet.
+
+    You need to install Pushbullet in all your devices
+    for this to work.
+
+    If this is your first time using this,
+    please run `moboff initialise` to add required
+    information.
+
+    Run `moboff download --help` to know about
+    various options while downloading and sending.
+    """
     pass
 
-@cli.command()
+
+@cli.command('download', short_help='Downloads and sends the video')
 @click.option('--link', prompt='Video/Playlist link to download',
               help='Paste the link here to download and send to your device')
 @click.option('--newdevice', help='Overwrite the saved device')
@@ -21,7 +36,16 @@ def cli():
 @click.option('--delete', is_flag=bool, default=False,
               help='Delete the music file after sending.')
 def download(link, newdevice, video, delete):
-    """Download the youtube song or video and send it to a device"""
+    """Download a youtube video or playlist
+    in best audio and video quality
+    by providing a link, and then send to the
+    preffered device, or override it with `--newdevice`
+    option.
+
+    Provide the device name for `--newdevice` in quotes for e.g. "OnePlus One".
+
+    Please run `moboff initialise` if this is your first time.
+    """
     if os.path.exists('data.txt'):
         with open('data.txt') as json_file:
             data = json.load(json_file)
@@ -37,46 +61,44 @@ def download(link, newdevice, video, delete):
 
     os.chdir('Music')
 
-    class MyLogger(object):
-        def debug(self, msg):
-            pass
-
-        def warning(self, msg):
-            pass
-
-        def error(self, msg):
-            print(msg)
-
-    def my_hook(d):
-        if d['status'] == 'finished':
-            print('Done downloading, now converting ...')
-
-    ydl_opts = {
-        'forcefilename': 'True',
-        'format': 'bestaudio/best',
-        'postprocessors': [{
-            'key': 'FFmpegExtractAudio',
-            'preferredcodec': 'mp3',
-            'preferredquality': '192',
-        }],
-        'logger': MyLogger(),
-        'progress_hooks': [my_hook],
-    }
-
     if video is True:
-        ydl_opts = {
-            'logger': MyLogger(),
-            'progress_hooks': [my_hook],
-        }
+        downloadcommand = ["youtube-dl",
+                           "--metadata-from-title",
+                           "%(artist)s - %(title)s",
+                           "-f",
+                           "bestvideo+bestaudio",
+                           "--add-metadata",
+                           "--output",
+                           "%(artist)s - %(title)s.%(ext)s",
+                           link]
+    else:
+        downloadcommand = ["youtube-dl",
+                           "--metadata-from-title",
+                           "%(artist)s - %(title)s",
+                           "--extract-audio",
+                           "--audio-format",
+                           "mp3",
+                           "--audio-quality",
+                           "0",
+                           "--add-metadata",
+                           "--output",
+                           "%(artist)s - %(title)s.%(ext)s",
+                           link]
 
-    with youtube_dl.YoutubeDL(ydl_opts) as ydl:
-        ydl.download([link])
+    try:
+        subprocess.check_output(downloadcommand, stderr=subprocess.STDOUT)
+    except subprocess.CalledProcessError:
+        print("Please check your URL and try again.")
+        quit()
 
-    list_of_mp3_files = glob.glob('*mp3')
-    list_of_mp4_files = glob.glob('*mp4')
+    click.secho("File successfully downloaded.", fg="green", bold=True)
+    types = ('*.mp3', '*.mp4', '*.mkv')
+    list_of_files = []
+    for files in types:
+        list_of_files.extend(glob.glob(files))
+
     recent_download = max(
-        list_of_mp3_files +
-        list_of_mp4_files,
+        list_of_files,
         key=os.path.getctime)
 
     print("File to send : {0}".format(recent_download))
@@ -85,18 +107,22 @@ def download(link, newdevice, video, delete):
     phone = device
 
     if(newdevice):
+        newdevice = "Device('{0}')".format(newdevice)
+        click.secho("Overriding preffered device : {0} with given device : {1}").format(
+            device, newdevice)
         phone = newdevice
 
     with open(recent_download, "rb") as song:
         file_data = pb.upload_file(song, recent_download)
 
     print("Now sending the file to {0}".format(phone))
-    #push = pb.push_file(**file_data)
+    push = pb.push_file(**file_data)
+
     if(delete):
         os.remove(recent_download)
 
 
-@cli.command()
+@cli.command('initialise', short_help='Initialise with info')
 def initialise():
     """Initialise the program with yout API key and preffered device."""
     click.secho(
@@ -104,11 +130,16 @@ def initialise():
         bold=True)
     api_key = input()
 
-    click.secho(
-        "Enter the serial number for your preffered device to send your music files",
-        bold=True)
+    try:
+        pb = Pushbullet(api_key)
+    except pushbullet.errors.InvalidKeyError:
+        click.secho(
+            "Please check your API key again. Run this command again and try.")
+        quit()
 
-    pb = Pushbullet(api_key)
+    click.secho(
+        "Enter the serial number (eg 1 or 2) for your preffered device to send your music files",
+        bold=True)
 
     i = 0
     for device in pb.devices:
@@ -132,6 +163,7 @@ def initialise():
         json.dump(data, outfile)
 
     click.secho("Now you can run `moboff download` :) ", fg="green", bold=True)
+
 
 if __name__ == '__main__':
     cli()
