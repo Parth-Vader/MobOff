@@ -17,11 +17,14 @@ There is a need for a tool which would directly download and convert the video, 
 ## Features
 
 * Download the best available audio, or video (by `--video` option) in common mobile player compatible extensions.
+* Playlists can also be downloaded.
 * Adds metadata automatically from the title.
 * Add a preffered device to send music, or override it with `--newdevice` option.
 * Delete the downloaded video/music file from the computer via `--delete` option.
 
 ## How to use?
+
+(Tested on Ubuntu with Python 3)
 
 >The initial setting up of the Pushbullet account seems a little tiring but it is just a one-time setup, and the gains are endless.
 
@@ -37,7 +40,7 @@ Pushbullet is a great tool for sending text messages, links, files and seeing ph
 
   * Clone the repository via `git clone https://github.com/Parth-Vader/MobOff.git`.
   * `cd MobOff`
-  * `sudo pip install .`
+  * `sudo pip3 install .`
 
 3. You need to initialise with some of your information.
   

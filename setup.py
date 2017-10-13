@@ -8,6 +8,7 @@ setup(
         author = 'Parth Verma',
         author_email = 'vermaparth97@gmail.com',
         url = "https://github.com/parth-vader/moboff",
+        license = "MIT License",
         install_requires=[
             'pushbullet.py',
             'youtube_dl',
