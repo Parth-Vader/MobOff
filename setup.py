@@ -1,9 +1,11 @@
 from setuptools import setup
+from setuptools import find_packages
 
 setup(
         name='MobOff',
         version='0.1',
         py_modules=['moboff'],
+        packages=find_packages(),
         description = 'Download and send videos to devices',
         author = 'Parth Verma',
         author_email = 'vermaparth97@gmail.com',

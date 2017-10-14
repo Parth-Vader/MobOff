@@ -47,6 +47,7 @@ It is recommended that you use `virtualenv` (especially for `conda` users).
   * `cd MobOff`
   * Install `ffprobe` via `sudo apt-get install -y libav-tools`
   * `pip3 install .`
+  * `python setup.py develop` to detect packages.
 
 ### You can also install it system-wide by cloning the repository (without the virtualenv) and using `sudo pip3 install .`
 
