@@ -1,11 +1,6 @@
 from pushbullet import Pushbullet
-import pushbullet
-import glob
-import os
-import subprocess
-import json
-
-import click
+from sys import version_info
+import pushbullet, glob, os, subprocess, json, click
 
 
 @click.group()
@@ -125,10 +120,15 @@ def download(link, newdevice, video, delete):
 @cli.command('initialise', short_help='Initialise with info')
 def initialise():
     """Initialise the program with yout API key and preffered device."""
+    if version_info[0] == 2:
+        rawinput = raw_input
+    else:
+        rawinput = input
+
     click.secho(
         "Please enter your API Key, you can obtain it from here: https://www.pushbullet.com/#settings/account",
         bold=True)
-    api_key = input()
+    api_key = rawinput()
 
     try:
         pb = Pushbullet(api_key)
@@ -146,7 +146,7 @@ def initialise():
         print("{0} : {1}".format(i + 1, device))
         i += 1
 
-    device_id = int(input()) - 1
+    device_id = int(rawinput()) - 1
 
     if not os.path.exists('Music'):
         os.makedirs('Music')
