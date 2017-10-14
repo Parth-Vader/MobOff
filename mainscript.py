@@ -1,6 +1,11 @@
 from pushbullet import Pushbullet
 from sys import version_info
-import pushbullet, glob, os, subprocess, json, click
+import pushbullet
+import glob
+import os
+import subprocess
+import json
+import click
 
 
 @click.group()
@@ -83,7 +88,7 @@ def download(link, newdevice, video, delete):
     try:
         subprocess.check_output(downloadcommand, stderr=subprocess.STDOUT)
     except subprocess.CalledProcessError:
-        print("Please check your URL and try again.")
+        print("Please check your URL, it shouldn't be a private playlist link (eg liked videos)")
         quit()
 
     click.secho("File successfully downloaded.", fg="green", bold=True)
