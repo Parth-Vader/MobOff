@@ -38,9 +38,17 @@ Pushbullet is a great tool for sending text messages, links, files and seeing ph
 
 2. After setting Pushbullet up, you need to install MobOff.
 
+It is recommended that you use `virtualenv` (especially for `conda` users).
+
+  * Installing `virtualenv` : ` sudo pip install virtualenv`
+  * `virtualenv venv --python=python3`
+  * `. venv/bin/activate`
   * Clone the repository via `git clone https://github.com/Parth-Vader/MobOff.git`.
   * `cd MobOff`
-  * `sudo pip3 install .`
+  * Install `ffprobe` via `sudo apt-get install -y libav-tools`
+  * `pip3 install .`
+
+### You can also install it system-wide by cloning the repository (without the virtualenv) and using `sudo pip3 install .`
 
 3. You need to initialise with some of your information.
   
