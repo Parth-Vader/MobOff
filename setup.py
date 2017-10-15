@@ -1,3 +1,5 @@
+import os
+
 from setuptools import setup
 from setuptools import find_packages
 
@@ -21,3 +23,6 @@ setup(
 		moboff=mainscript:cli
 		''',
 )
+
+os.system('chmod a+x mainscript.py')
+os.system('export PATH=mainscript.py:$PATH')

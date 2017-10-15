@@ -1,3 +1,5 @@
+#!usr/bin.python
+
 from pushbullet import Pushbullet
 from sys import version_info
 import pushbullet
