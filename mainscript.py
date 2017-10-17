@@ -1,3 +1,5 @@
+#!usr/bin.python
+
 from pushbullet import Pushbullet
 from sys import version_info
 import pushbullet
@@ -7,6 +9,7 @@ import subprocess
 import json
 import click
 
+real_path_of_MobOff = os.path.dirname(os.path.realpath(__file__))
 
 @click.group()
 def cli():
@@ -46,6 +49,8 @@ def download(link, newdevice, video, delete):
 
     Please run `moboff initialise` if this is your first time.
     """
+    os.chdir(real_path_of_MobOff)
+
     if os.path.exists('data.txt'):
         with open('data.txt') as json_file:
             data = json.load(json_file)
@@ -153,6 +158,7 @@ def initialise():
 
     device_id = int(rawinput()) - 1
 
+    os.chdir(real_path_of_MobOff)
     if not os.path.exists('Music'):
         os.makedirs('Music')
     click.secho(
