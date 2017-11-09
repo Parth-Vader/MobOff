@@ -51,12 +51,11 @@ def download(link, newdevice, video, delete):
     """
     os.chdir(real_path_of_MobOff)
 
-    if os.path.exists('data.txt'):
-        with open('data.txt') as json_file:
+    if os.path.exists('moboff_cfg.json'):
+        with open('moboff_cfg.json') as json_file:
             data = json.load(json_file)
-            for p in data['user']:
-                api_key = p['api_key']
-                device = p['device']
+            api_key = data['user']['api_key']
+            device = data['user']['device']
     else:
         click.secho(
             "Please run `moboff initialise` first.",
@@ -111,7 +110,7 @@ def download(link, newdevice, video, delete):
     pb = Pushbullet(api_key)
     phone = device
 
-    if(newdevice):
+    if newdevice:
         newdevice = "Device('{0}')".format(newdevice)
         click.secho("Overriding preffered device : {0} with given device : {1}").format(
             device, newdevice)
@@ -121,7 +120,7 @@ def download(link, newdevice, video, delete):
         file_data = pb.upload_file(song, recent_download)
 
     print("Now sending the file to {0}".format(phone))
-    push = pb.push_file(**file_data)
+    pb.push_file(**file_data)
 
     if(delete):
         os.remove(recent_download)
@@ -151,11 +150,9 @@ def initialise():
         "Enter the serial number (eg 1 or 2) for your preffered device to send your music files",
         bold=True)
 
-    i = 0
-    for device in pb.devices:
-        print("{0} : {1}".format(i + 1, device))
-        i += 1
-
+    for i, device in enumerate(pb.devices, 1):
+        print("{0} : {1}".format(i, device))
+   
     device_id = int(rawinput()) - 1
 
     os.chdir(real_path_of_MobOff)
@@ -164,13 +161,15 @@ def initialise():
     click.secho(
         "The music would be downloaded to {0}/Music".format(os.getcwd()))
 
-    data = {}
-    data['user'] = []
-    data['user'].append({
-        'api_key': api_key,
-        'device': str(pb.devices[device_id]),
-    })
-    with open('data.txt', 'w') as outfile:
+        
+
+    data = {
+         'user': {
+                 'api_key': api_key,
+                 'device': str(pb.devices[device_id]),
+         }
+     }
+    with open('moboff_cfg.json', 'w') as outfile:
         json.dump(data, outfile)
 
     click.secho("Now you can run `moboff download` :) ", fg="green", bold=True)
