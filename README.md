@@ -102,5 +102,3 @@ It is recommended that you use `virtualenv` (especially for `conda` users).
 This is a very young project. If you have got any suggestions for new features or improvements, please comment over here. Pull Requests are most welcome !
 
 ❤
-
-Please star if you liked it :)
