@@ -5,7 +5,7 @@ from setuptools import find_packages
 
 setup(
         name='MobOff',
-        version='0.2',
+        version='0.2.1',
         py_modules=['moboff'],
         packages=find_packages(),
         description = 'Download youtube music and send to devices',
