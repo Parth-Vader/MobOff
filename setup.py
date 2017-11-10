@@ -12,7 +12,7 @@ setup(
         author = 'Parth Verma',
         author_email = 'vermaparth97@gmail.com',
         url = "https://github.com/parth-vader/MobOff",
-        download_url = 'https://codeload.github.com/Parth-Vader/MobOff/tar.gz/0.2',
+        download_url = 'https://codeload.github.com/Parth-Vader/MobOff/tar.gz/0.2.1',
         license = "MIT License",
         install_requires=[
             'pushbullet.py',
