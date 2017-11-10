@@ -21,9 +21,9 @@ setup(
         ],
         entry_points='''
 		[console_scripts]
-		moboff=mainscript:cli
+		moboff=moboff:cli
 		''',
 )
 
-os.system('chmod a+x mainscript.py')
-os.system('export PATH=mainscript.py:$PATH')
+os.system('chmod a+x moboff.py')
+os.system('export PATH=moboff.py:$PATH')
