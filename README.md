@@ -43,13 +43,9 @@ It is recommended that you use `virtualenv` (especially for `conda` users).
   * Installing `virtualenv` : ` sudo pip install virtualenv`
   * `virtualenv venv --python=python3`
   * `. venv/bin/activate`
-  * Clone the repository via `git clone https://github.com/Parth-Vader/MobOff.git`.
-  * `cd MobOff`
-  * Install `ffprobe` via `sudo apt-get install -y libav-tools`
-  * `pip3 install .`
-  * `python setup.py develop` to detect packages.
+  * `pip3 install moboff`
 
-### You can also install it system-wide by cloning the repository (without the virtualenv) and using `sudo pip3 install .`
+### You can also install it system-wide by `pip3 install .` 
 
 3. You need to initialise with some of your information.
   
