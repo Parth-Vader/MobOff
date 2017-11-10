@@ -8,10 +8,10 @@ setup(
         version='0.1',
         py_modules=['moboff'],
         packages=find_packages(),
-        description = 'Download and send videos to devices',
+        description = 'Download youtube music and send to devices',
         author = 'Parth Verma',
         author_email = 'vermaparth97@gmail.com',
-        url = "https://github.com/parth-vader/moboff",
+        url = "https://github.com/parth-vader/MobOff",
         license = "MIT License",
         install_requires=[
             'pushbullet.py',
