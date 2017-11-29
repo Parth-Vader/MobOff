@@ -8,8 +8,10 @@ import os
 import subprocess
 import json
 import click
+from utils import select_directory
 
 real_path_of_MobOff = os.path.dirname(os.path.realpath(__file__))
+
 
 @click.group()
 def cli():
@@ -56,6 +58,7 @@ def download(link, newdevice, video, delete):
             data = json.load(json_file)
             api_key = data['user']['api_key']
             device = data['user']['device']
+            directory = data['user']['directory']
     else:
         click.secho(
             "Please run `moboff initialise` first.",
@@ -63,7 +66,7 @@ def download(link, newdevice, video, delete):
             bold=True)
         quit()
 
-    os.chdir('Music')
+    os.chdir(directory)
 
     if video is True:
         downloadcommand = ["youtube-dl",
@@ -152,23 +155,21 @@ def initialise():
 
     for i, device in enumerate(pb.devices, 1):
         print("{0} : {1}".format(i, device))
-   
+
     device_id = int(rawinput()) - 1
 
-    os.chdir(real_path_of_MobOff)
-    if not os.path.exists('Music'):
-        os.makedirs('Music')
-    click.secho(
-        "The music would be downloaded to {0}/Music".format(os.getcwd()))
+    click.secho("Please Select a directory for store the Downloads", bold=True)
+    directory = select_directory()
 
-        
+    click.secho("The music would be downloaded to {0}".format(directory))
 
     data = {
-         'user': {
-                 'api_key': api_key,
-                 'device': str(pb.devices[device_id]),
-         }
-     }
+        'user': {
+            'api_key': api_key,
+            'device': str(pb.devices[device_id]),
+            'directory': directory,
+        }
+    }
     with open('moboff_cfg.json', 'w') as outfile:
         json.dump(data, outfile)
 
