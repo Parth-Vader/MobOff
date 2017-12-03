@@ -8,7 +8,7 @@ import os
 import subprocess
 import json
 import click
-from utils import select_directory
+from download_utils import select_directory
 
 real_path_of_MobOff = os.path.dirname(os.path.realpath(__file__))
 
