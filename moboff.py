@@ -12,6 +12,10 @@ from download_utils import select_directory
 
 real_path_of_MobOff = os.path.dirname(os.path.realpath(__file__))
 
+if version_info[0] == 2:
+    rawinput = raw_input
+else:
+    rawinput = input
 
 @click.group()
 def cli():
@@ -66,7 +70,12 @@ def download(link, newdevice, video, delete):
             bold=True)
         quit()
 
-    os.chdir(directory)
+    try:
+        os.chdir(directory)
+    except OSError:
+        click.secho("The directory previously selected to download music can't be accessed."
+                    " Please rerun moboff initialise.")
+        quit()
 
     if video is True:
         downloadcommand = ["youtube-dl",
@@ -110,7 +119,12 @@ def download(link, newdevice, video, delete):
 
     print("File to send : {0}".format(recent_download))
 
-    pb = Pushbullet(api_key)
+    try:
+        pb = Pushbullet(api_key)
+    except pushbullet.errors.InvalidKeyError:
+        click.secho("API key you previously entered is no longer valid. Please rerun moboff initialise.")
+        quit()
+
     phone = device
 
     if newdevice:
@@ -131,11 +145,7 @@ def download(link, newdevice, video, delete):
 
 @cli.command('initialise', short_help='Initialise with info')
 def initialise():
-    """Initialise the program with yout API key and preferred device."""
-    if version_info[0] == 2:
-        rawinput = raw_input
-    else:
-        rawinput = input
+    """Initialise the program with your API key and preferred device."""
 
     click.secho(
         "Please enter your API Key, you can obtain it from here: https://www.pushbullet.com/#settings/account",
@@ -157,6 +167,10 @@ def initialise():
         print("{0} : {1}".format(i, device))
 
     device_id = int(rawinput()) - 1
+
+    if not 0 <= device_id <= len(pb.devices):
+        click.secho("Choose from available device.")
+        quit()
 
     click.secho("Please Select a directory for store the Downloads", bold=True)
     directory = select_directory()
