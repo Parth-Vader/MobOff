@@ -32,11 +32,16 @@ There is a need for a tool which would directly download and convert the video, 
 
 Pushbullet is a great tool for sending text messages, links, files and seeing phone's notifications on your computer.
 
-  * Create yout account on it using your Google or Facebook login.
+  * Create your account on it using your Google or Facebook login.
   * Install the Pushbullet App on your iOS or Android device.
   * Install the Chrome/Firefox extension for Pushbullet on your computer.
 
-2. After setting Pushbullet up, you need to install MobOff.
+2. You need to install `ffmpeg` and `tkinter`.
+  * Installing ffmpeg :  `sudo apt-get install ffmpeg`
+  * Installing tkinter( for python3 users ) :  `sudo apt-get install python3-tk` 
+  * Installing tkinter( for python2 users ) :  `sudo apt-get install python-tk`
+
+3. After setting Pushbullet up, you need to install MobOff.
 
 It is recommended that you use `virtualenv` (especially for `conda` users).
 
@@ -52,6 +57,7 @@ It is recommended that you use `virtualenv` (especially for `conda` users).
   * Run `moboff initialise`
   * Obtain your Pushbullet API key via [Pushbullet Settings](https://www.pushbullet.com/#settings/account) by clicking on "Create Access Token" button.
   * Enter the serial number for your preffered device to send the music/video files to when asked to.
+  * When prompted enter the directory in which you want the downloaded files should be stored. 
   
 ### You're all set up.
 
