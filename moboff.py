@@ -71,6 +71,30 @@ def download(link, newdevice, video, delete):
         quit()
 
     try:
+        pb = Pushbullet(api_key)
+    except pushbullet.errors.InvalidKeyError:
+        click.secho("API key you previously entered is no longer valid. Please rerun moboff initialise.")
+        quit()
+
+    phone = device
+
+    if newdevice:
+        click.secho("Overriding preferred device : {0} with given device : {1}".format(
+            device, newdevice))
+        phone = newdevice
+
+    try:
+        to_device = pb.get_device(phone)
+    except pushbullet.errors.PushbulletError:
+        if newdevice:
+            click.secho("{0} isn't setup with Pushbullet. "
+                        "Please either set it up or check the spelling of entered device".format(newdevice))
+        else:
+            click.secho("The default device you entered initially doesn't exist anymore. "
+                        "Please rerun moboff initialise.")
+        quit()
+
+    try:
         os.chdir(directory)
     except OSError:
         click.secho("The directory previously selected to download music can't be accessed."
@@ -119,25 +143,11 @@ def download(link, newdevice, video, delete):
 
     print("File to send : {0}".format(recent_download))
 
-    try:
-        pb = Pushbullet(api_key)
-    except pushbullet.errors.InvalidKeyError:
-        click.secho("API key you previously entered is no longer valid. Please rerun moboff initialise.")
-        quit()
-
-    phone = device
-
-    if newdevice:
-        newdevice = "Device('{0}')".format(newdevice)
-        click.secho("Overriding preferred device : {0} with given device : {1}").format(
-            device, newdevice)
-        phone = newdevice
-
     with open(recent_download, "rb") as song:
         file_data = pb.upload_file(song, recent_download)
 
     print("Now sending the file to {0}".format(phone))
-    pb.push_file(**file_data)
+    pb.push_file(**file_data, device=to_device)
 
     if(delete):
         os.remove(recent_download)
@@ -164,7 +174,7 @@ def initialise():
         bold=True)
 
     for i, device in enumerate(pb.devices, 1):
-        print("{0} : {1}".format(i, device))
+        print("{0} : {1}".format(i, device.nickname))
 
     device_id = int(rawinput()) - 1
 
@@ -180,7 +190,7 @@ def initialise():
     data = {
         'user': {
             'api_key': api_key,
-            'device': str(pb.devices[device_id]),
+            'device': pb.devices[device_id].nickname,
             'directory': directory,
         }
     }
