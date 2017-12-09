@@ -1,13 +1,15 @@
 #!usr/bin.python
 
-from pushbullet import Pushbullet
-from sys import version_info
-import pushbullet
 import glob
 import os
 import subprocess
 import json
+from sys import version_info
+
+from pushbullet import Pushbullet
+import pushbullet
 import click
+
 from download_utils import select_directory
 
 real_path_of_MobOff = os.path.dirname(os.path.realpath(__file__))
@@ -16,6 +18,7 @@ if version_info[0] == 2:
     rawinput = raw_input
 else:
     rawinput = input
+
 
 @click.group()
 def cli():
@@ -149,7 +152,7 @@ def download(link, newdevice, video, delete):
     print("Now sending the file to {0}".format(phone))
     pb.push_file(**file_data, device=to_device)
 
-    if(delete):
+    if delete:
         os.remove(recent_download)
 
 
