@@ -47,7 +47,10 @@ def cli():
               help='Send the video file instead of mp3 file.')
 @click.option('--delete', is_flag=bool, default=False,
               help='Delete the music file after sending.')
-def download(link, newdevice, video, delete):
+@click.option('--send', is_flag=bool, default=False,
+              help='Send the file to a friend.')
+
+def download(link, newdevice, video, delete,send):
     """Download a youtube video or playlist
     in best audio and video quality
     by providing a link, and then send to the
@@ -149,9 +152,22 @@ def download(link, newdevice, video, delete):
     with open(recent_download, "rb") as song:
         file_data = pb.upload_file(song, recent_download)
 
-    print("Now sending the file to {0}".format(phone))
-    pb.push_file(**file_data, device=to_device)
+    
+    to_device.push_file(**file_data)
+    print("The file has been sent to {0}.".format(to_device))
 
+    if send:
+        for i, device in enumerate(pb.chats, 1):
+            print("{0} : {1}".format(i, device))
+        index=rawinput("Enter the corresponding chat no. for the person you want to send the file to. ")
+        try:
+            chat=pb.chats[index-1]
+            pb.push_file(**file_data, chat=chat)
+        except:
+            print("Contact does not exist.")
+        else:
+            print("The file has been sent to ", chat)
+  
     if delete:
         os.remove(recent_download)
 

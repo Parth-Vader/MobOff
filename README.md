@@ -21,6 +21,7 @@ There is a need for a tool which would directly download and convert the video, 
 * Adds metadata automatically from the title.
 * Add a preffered device to send music, or override it with `--newdevice` option.
 * Delete the downloaded video/music file from the computer via `--delete` option.
+* Send the downloaded video/music file to your friends via the `--send` option.
 
 ## How to use?
 
@@ -101,7 +102,16 @@ It is recommended that you use `virtualenv` (especially for `conda` users).
       --newdevice TEXT  Overwrite the saved device
       --video           Send the video file instead of mp3 file.
       --delete          Delete the music file after sending.
+      --send            Send the file to a friend.
       --help            Show this message and exit.
+      
+### `moboff initialise --help`
+    Usage: moboff initialise [OPTIONS]
+      
+      Initialise the program with your API key and preferred device.
+      
+    Options:
+      --help  Show this message and exit.
 
 ## Contribute
 
