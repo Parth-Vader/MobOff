@@ -1,5 +1,11 @@
 # MobOff
 
+
+[![forthebadge](http://forthebadge.com/images/badges/made-with-python.svg)](http://forthebadge.com)
+
+
+[![chat on Slack](https://img.shields.io/badge/chat%20on%20-Slack-brightgreen.svg?style=for-the-badge)](https://kwoc2017-parth.slack.com/)
+
 > A command line tool to add your music and videos directly to several devices.
 
 ## Why?
@@ -124,4 +130,5 @@ Feeding the data, url for download. Ultimately, the links have been sent to your
 
 This is a very young project. If you have got any suggestions for new features or improvements, please comment over here. Pull Requests are most welcome !
 
-❤
+
+[![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
