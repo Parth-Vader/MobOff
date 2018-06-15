@@ -118,7 +118,7 @@ Feeding the data, url for download. Ultimately, the links have been sent to your
       --send            Send the file to a friend.
       --help            Show this message and exit.
       
-### `moboff initialise --help`
+#### `moboff initialise --help`
     Usage: moboff initialise [OPTIONS]
       
       Initialise the program with your API key and preferred device.
@@ -132,4 +132,5 @@ This is a very young project. If you have got any suggestions for new features o
 
 
 [![forthebadge](http://forthebadge.com/images/badges/built-with-love.svg)](http://forthebadge.com)
-Logo Credits : Divya Sharma.
+
+##### Logo Credits : Divya Sharma.
