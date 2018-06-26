@@ -55,9 +55,7 @@ It is recommended that you use `virtualenv` (especially for `conda` users).
   * Installing `virtualenv` : ` sudo pip install virtualenv`
   * `virtualenv venv --python=python3`
   * `. venv/bin/activate`
-  * `pip3 install moboff`
-
-### You can also install it system-wide by `pip3 install MobOff` 
+  * `python setup.py install`
 
 3. You need to initialise with some of your information.
   
