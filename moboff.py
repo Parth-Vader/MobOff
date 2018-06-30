@@ -62,6 +62,7 @@ def download(link, newdevice, video, delete,send):
     Please run `moboff initialise` if this is your first time.
     """
     os.chdir(real_path_of_MobOff)
+    
 
     if os.path.exists('moboff_cfg.json'):
         with open('moboff_cfg.json') as json_file:
@@ -224,7 +225,7 @@ def initialise():
             'directory': directory,
         }
     }
-    with open('moboff_cfg.json', 'w') as outfile:
+    with open(os.path.join(real_path_of_MobOff , 'moboff_cfg.json'), 'w') as outfile:
         json.dump(data, outfile)
 
     click.secho("Now you can run `moboff download` :) ", fg="green", bold=True)
