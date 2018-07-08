@@ -43,6 +43,8 @@ Pushbullet is a great tool for sending text messages, links, files and seeing ph
   * Install the Pushbullet App on your iOS or Android device.
   * Install the Chrome/Firefox extension for Pushbullet on your computer.
 
+**You can skip the following steps if you have [Docker](https://www.docker.com/) installed on your machine. See how to run using docker [instructions](#with-docker)**
+
 2. You need to install `ffmpeg` and `tkinter`.
   * Installing ffmpeg :  `sudo apt-get install ffmpeg`
   * Installing tkinter( for python3 users ) :  `sudo apt-get install python3-tk` 
@@ -73,6 +75,27 @@ Installation of the dependencies
 Feeding the data, url for download. Ultimately, the links have been sent to your Computer and Android phone.
 
 ![](P2.gif?raw=true)
+
+### With Docker
+Run the following commands
+```
+# build the docker image
+$ docker build -t moboff .
+
+# disable access control for X11 server
+$ xhost +
+
+# run the container
+$ docker run --it -e DISPLAY=$DISPLAY \
+             -v /tmp/.X11-unix:/tmp/.X11-unix \
+             moboff
+
+# run moboff
+$ moboff
+
+# press Ctrl+C to stop the running container
+```
+
 ## Usage
 
 ### `moboff --help`
