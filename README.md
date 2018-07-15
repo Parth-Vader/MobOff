@@ -76,8 +76,31 @@ Feeding the data, url for download. Ultimately, the links have been sent to your
 
 ![](P2.gif?raw=true)
 
-### With Docker
-Run the following commands
+### With Docker (Use any of the two methods)
+
+Follow this [instructions](https://docs.docker.com/install) to install Docker if it is not installed.
+
+#### Pull Docker image from Docker Hub and start the container
+Make sure you are logged into Docker Hub from your command line by running `docker login`. The Docker Hub repository is [here](https://hub.docker.com/r/ashwani99/moboff/).
+Now run the following commands
+```
+$ docker pull ashwani99/moboff
+
+# disable access control for X11 server
+$ xhost +
+
+# run the container
+$ docker run -it -rm -e DISPLAY=$DISPLAY \
+             -v /tmp/.X11-unix:/tmp/.X11-unix \
+             ashwani99/moboff
+
+# run moboff
+$ moboff
+
+# press Ctrl+C to stop the running container
+```
+
+#### Locally build the image and start a container
 ```
 # build the docker image
 $ docker build -t moboff .
@@ -86,7 +109,7 @@ $ docker build -t moboff .
 $ xhost +
 
 # run the container
-$ docker run --it -e DISPLAY=$DISPLAY \
+$ docker run -it -e DISPLAY=$DISPLAY \
              -v /tmp/.X11-unix:/tmp/.X11-unix \
              moboff
 
