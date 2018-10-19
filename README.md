@@ -3,9 +3,6 @@
 
 [![forthebadge](http://forthebadge.com/images/badges/made-with-python.svg)](http://forthebadge.com)
 
-
-[![chat on Slack](https://img.shields.io/badge/chat%20on%20-Slack-brightgreen.svg?style=for-the-badge)](https://kwoc2017-parth.slack.com/)
-
 > A command line tool to add your music and videos directly to several devices.
 
 ## Why?
